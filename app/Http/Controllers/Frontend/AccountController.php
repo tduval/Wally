@@ -15,9 +15,7 @@ class AccountController extends Controller {
 	 */
 	public function index()
 	{
-		$accounts = Accounts::where('user_id', auth()->user()->id)->get();
-		return view('frontend.account', ['accounts' => $accounts]);
-			//->withUser(auth()->user());
+		return view('frontend.account.view');
 	}
 
 	public function createAccount(Request $request)
@@ -30,30 +28,27 @@ class AccountController extends Controller {
     $account->save();
 
 		$accounts = Accounts::where('user_id', auth()->user()->id)->get();
-		return view('frontend.account', ['accounts' => $accounts]);
+		return redirect('portfolio');
 	}
 
-	public function view($id)
+	public function deleteAccount(Request $request)
 	{
-		return view('frontend.account.view');
-	}
-
-	public function delete()
-	{
-
+		$account = Accounts::find($request->id);
+		$account->delete();
+		return redirect('portfolio');
 	}
 
 	public function addTransaction(Request $request)
 	{
-		$account = new Accounts;
-		$account->user_id = auth()->user()->id;
-    $account->name = $request->accountName;
-		$account->type = $request->accountType;
-		$account->broker = $request->accountBroker;
-        $account->save();
-
-		$accounts = Accounts::where('user_id', auth()->user()->id)->get();
-		return view('frontend.account', ['accounts' => $accounts]);
+		// $account = new Accounts;
+		// $account->user_id = auth()->user()->id;
+    // $account->name = $request->accountName;
+		// $account->type = $request->accountType;
+		// $account->broker = $request->accountBroker;
+    //     $account->save();
+		//
+		// $accounts = Accounts::where('user_id', auth()->user()->id)->get();
+		//return redirect()->back();
 	}
 
 }

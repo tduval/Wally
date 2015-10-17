@@ -54,7 +54,7 @@
 		<div class="col-md-6">
 
 			<div class="panel panel-default">
-				<div class="panel-heading"><i class="fa fa-home"></i> My Account</div>
+				<div class="panel-heading"><i class="fa fa-home"></i> My Accounts</div>
 
 				<div class="panel-body">
 
@@ -65,7 +65,7 @@
 								<th>Name</th>
 								<th>Type</th>
 								<th>Broker</th>
-								<th>Detail</th>
+								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -76,7 +76,8 @@
 										<td>{{ $account['name'] }}</td>
 										<td>{{ $account['type'] }}</td>
 										<td>{{ $account['broker'] }}</td>
-										<td><a href="{{ url("/account/$account->id/view") }}" class="fa fa-eye"></td>
+										<td><a href="{{ url("/account/$account->id") }}" class="fa fa-eye">
+												<a href="{{ url("/account/$account->id/delete") }}" class="fa fa-trash-o"></td>
 									</tr>
 								@endforeach
 							@endif

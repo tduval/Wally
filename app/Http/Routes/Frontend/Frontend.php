@@ -17,12 +17,12 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 	get('stock', 'StockController@index')->name('frontend.stock');
 	post('stock', 'StockController@postSearch')->name('frontend.stock');
 
-	get('account', 'AccountController@index')->name('frontend.account');
+	get('portfolio', 'PortfolioController@index')->name('frontend.portfolio');
 	post('account', 'AccountController@createAccount')->name('frontend.account');
 
 	$router->group(['prefix' => 'account/{id}', 'where' => ['id' => '[0-9]+']], function () use ($router) {
-		get('view', 'AccountController@view')->name('frontend.account');
-		get('delete', 'AccountController@delete')->name('frontend.account');
+		get('/', 'AccountController@index')->name('frontend.account');
+		get('delete', 'AccountController@deleteAccount')->name('frontend.account');
 		post('add', 'AccountController@addTransaction')->name('frontend.account');
 	});
 

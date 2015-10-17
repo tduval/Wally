@@ -3,7 +3,7 @@
 @section('content')
 	<div class="row">
 
-		<div class="col-md-4 col-md-offset-1">
+		<div class="col-md-3 col-md-offset-1">
 
 			<div class="panel panel-default">
 				<div class="panel-heading"><i class="fa fa-search"></i> Add a Transaction</div>
@@ -30,13 +30,9 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="input-group spinner">
+						<div class="input-group">
 							<span class="input-group-addon">Quantity</span>
-							<input type="text" name="transactionPrice" class="form-control" placeholder="Amount of price">
-							<div class="input-group-btn-vertical">
-					      <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-					      <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-					    </div>
+							<input type="text" name="transactionQuantity" class="form-control" placeholder="Number of shares">
 						</div>
 					</div>
 					<div class="form-group">
@@ -57,10 +53,10 @@
 
 		</div><!-- col-md-10 -->
 
-		<div class="col-md-6">
+		<div class="col-md-7">
 
 			<div class="panel panel-default">
-				<div class="panel-heading"><i class="fa fa-home"></i> My Account</div>
+				<div class="panel-heading"><i class="fa fa-home"></i> My Transactions</div>
 
 				<div class="panel-body">
 
@@ -68,21 +64,25 @@
 						<thead>
 							<tr>
 								<th>ID</th>
-								<th>Name</th>
+								<th>Stock Name</th>
 								<th>Type</th>
-								<th>Broker</th>
-								<th>Detail</th>
+								<th>Quantity</th>
+								<th>Price</th>
+								<th>Commission</th>
+								<th>Date</th>
 							</tr>
 						</thead>
 						<tbody>
-							@if (isset($accounts))
-								@foreach ($accounts as $account)
+							@if (isset($transactions))
+								@foreach ($transactions as $account)
 									<tr>
-										<th scope="row">{{ $account['id'] }}</th>
-										<td>{{ $account['name'] }}</td>
-										<td>{{ $account['type'] }}</td>
-										<td>{{ $account['broker'] }}</td>
-										<td><a href="{{ url("/account/$account->id/view") }}" class="fa fa-eye"></td>
+										<th scope="row">{{ $transaction['id'] }}</th>
+										<td>{{ $transaction['stock_id'] }}</td>
+										<td>{{ $transaction['type'] }}</td>
+										<td>{{ $transaction['quantity'] }}</td>
+										<td>{{ $transaction['price'] }}</td>
+										<td>{{ $transaction['commission'] }}</td>
+										<td>{{ $transaction['created_at'] }}</td>
 									</tr>
 								@endforeach
 							@endif

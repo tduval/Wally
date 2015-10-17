@@ -15,7 +15,7 @@
 					<li>{!! link_to('/', trans('navs.home')) !!}</li>
 					<li>{!! link_to('macros', trans('navs.macros')) !!}</li>
 					<li>{!! link_to('stock', "Stock") !!}</li>
-					<li>{!! link_to('account', "Account") !!}</li>
+					<li>{!! link_to('portfolio', "Portfolio") !!}</li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">

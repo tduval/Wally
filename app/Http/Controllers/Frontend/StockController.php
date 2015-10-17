@@ -3,7 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use DirkOlbrich\YahooFinanceQuery\YahooFinanceQuery;
+use App\YahooFinanceQuery;
 
 /**
  * Class StockController
@@ -19,12 +19,12 @@ class StockController extends Controller {
 		return view('frontend.stock')
 			->withUser(auth()->user());
 	}
-	
+
 	public function postSearch(Request $request)
 	{
 		$requestStock = $request->input('stockSearch');
-        $query = new YahooFinanceQuery;
-        $data = $query->symbolSuggest($requestStock)->get();
-        return view('frontend.stock', ['stocks' => $data]);
+    $query = new YahooFinanceQuery;
+    $data = $query->symbolSuggest($requestStock)->get();
+    return view('frontend.stock', ['stocks' => $data]);
 	}
 }

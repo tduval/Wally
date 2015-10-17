@@ -20,10 +20,10 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 	get('portfolio', 'PortfolioController@index')->name('frontend.portfolio');
 	post('account', 'AccountController@createAccount')->name('frontend.account');
 
-	$router->group(['prefix' => 'account/{id}', 'where' => ['id' => '[0-9]+']], function () use ($router) {
+	$router->group(['prefix' => 'account/{id}', 'where' => ['id' => '[0-9]+']], function ($id) use ($router) {
 		get('/', 'AccountController@index')->name('frontend.account');
 		get('delete', 'AccountController@deleteAccount')->name('frontend.account');
-		post('add', 'AccountController@addTransaction')->name('frontend.account');
+		post('/', 'AccountController@addTransaction')->name('frontend.account');
 	});
 
 });

@@ -216,5 +216,6 @@ return [
 		'HTML'		=> 'Illuminate\Html\HtmlFacade',
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 		'Active'    => 'HieuLe\Active\Facades\Active',
+		'Debugbar' => Barryvdh\Debugbar\Facade::class,
 	],
 ];

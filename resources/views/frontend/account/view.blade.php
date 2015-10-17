@@ -7,9 +7,8 @@
 
 			<div class="panel panel-default">
 				<div class="panel-heading"><i class="fa fa-search"></i> Add a Transaction</div>
-
 				<div class="panel-body">
-					<form action="{{ url("/account/add") }}" method="post">
+					<form action="{{ url('/account/'.$id) }}" method="post">
 					<div class="form-group">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<div class="input-group">
@@ -32,7 +31,7 @@
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon">Quantity</span>
-							<input type="text" name="transactionQuantity" class="form-control" placeholder="Number of shares">
+							<input type="number" name="transactionQuantity" class="form-control" placeholder="Number of shares">
 						</div>
 					</div>
 					<div class="form-group">
@@ -74,10 +73,14 @@
 						</thead>
 						<tbody>
 							@if (isset($transactions))
-								@foreach ($transactions as $account)
+								@foreach ($transactions as $transaction)
 									<tr>
 										<th scope="row">{{ $transaction['id'] }}</th>
-										<td>{{ $transaction['stock_id'] }}</td>
+										@foreach ($stocks as $stock)
+											@if ($stock['id'] == $transaction['stock_id'])
+												<td>{{ $stock['name'] }}</td>
+											@endif
+										@endforeach
 										<td>{{ $transaction['type'] }}</td>
 										<td>{{ $transaction['quantity'] }}</td>
 										<td>{{ $transaction['price'] }}</td>

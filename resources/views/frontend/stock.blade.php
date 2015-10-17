@@ -9,15 +9,14 @@
 				<div class="panel-heading"><i class="fa fa-search"></i> Searching Stock</div>
 
 				<div class="panel-body">
-					<form action="{{ url('/stock') }}" method="post">
+					{!! Form::open(array('url' => '/stock', 'method' => 'POST')) !!}
 					<div class="input-group">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-						<input type="text" name="stockSearch" class="form-control" placeholder="Type a stock name here">
+						{!! Form::text('stockSearch', null, array('class' => 'form-control', 'placeholder' => "Type a stock security here")) !!}
 						<span class="input-group-btn">
-							<button class="btn btn-default" type="submit">Search!</button>
+							{!! Form::submit('Search', array('class' => 'btn btn-default')) !!}
 						</span>
 					</div><!-- /input-group -->
-					</form>
+					{!! Form::close() !!}
 				</div>
 			</div><!-- panel -->
 

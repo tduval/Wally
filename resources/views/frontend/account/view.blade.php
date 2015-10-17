@@ -8,45 +8,39 @@
 			<div class="panel panel-default">
 				<div class="panel-heading"><i class="fa fa-search"></i> Add a Transaction</div>
 				<div class="panel-body">
-					<form action="{{ url('/account/'.$id) }}" method="post">
+					{!! Form::open(array('url' => '/account/'.$id, 'method' => 'POST')) !!}
+
 					<div class="form-group">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<div class="input-group">
 							<span class="input-group-addon">Stock</span>
-							<input type="text" name="TransactionStock" class="form-control" placeholder="Type a stock security here">
+							{!! Form::text('transactionStock', null, array('class' => 'form-control', 'placeholder' => "Type a stock security here")) !!}
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon">Type</span>
-							<!--<input type="text" name="accountType" class="form-control" placeholder="Type an account type here">-->
-							<select class="form-control" name="transactionType">
-								<option>Buy</option>
-								<option>Sell</option>
-								<option>Deposit</option>
-								<option>Withdrawal</option>
-							</select>
+							{!! Form::select('transactionType', ['Buy', 'Sell', 'Deposit', 'Withdrawal'], null, ['class' => 'form-control']) !!}
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon">Quantity</span>
-							<input type="number" name="transactionQuantity" class="form-control" placeholder="Number of shares">
+							{!! Form::text('transactionQuantity', null, array('class' => 'form-control', 'placeholder' => "Number of Shares")) !!}
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon">Price</span>
-							<input type="text" name="transactionPrice" class="form-control" placeholder="Amount of price">
+							{!! Form::text('transactionPrice', null, array('class' => 'form-control', 'placeholder' => "Amount of price")) !!}
 							<span class="input-group-addon">$</span>
 						</div>
 					</div>
 					<div class="form-group">
 						<span class="input-group-btn">
-							<button class="btn btn-default btn-primary" type="submit">Add!</button>
+							{!! Form::submit('Add', array('class' => 'btn btn-default btn-primary')) !!}
 						</span>
 					</div><!-- /input-group -->
-					</form>
+					{!! Form::close() !!}
 				</div>
 			</div><!-- panel -->
 

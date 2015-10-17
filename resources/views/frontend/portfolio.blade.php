@@ -9,43 +9,31 @@
 				<div class="panel-heading"><i class="fa fa-search"></i> New Account</div>
 
 				<div class="panel-body">
-					<form action="{{ url('/account') }}" method="post">
+					{!! Form::open(array('url' => '/account', 'method' => 'POST')) !!}
 					<div class="form-group">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<div class="input-group">
 							<span class="input-group-addon">Name</span>
-							<input type="text" name="accountName" class="form-control" placeholder="Type an account name here">
+							{!! Form::text('accountName', null, array('class' => 'form-control', 'placeholder' => "Type an account name here")) !!}
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon">Type</span>
-							<!--<input type="text" name="accountType" class="form-control" placeholder="Type an account type here">-->
-							<select class="form-control" name="accountType">
-								<option>Comptes Titres</option>
-								<option>PEA</option>
-								<option>PEA-PME</option>
-							</select>
+							{!! Form::select('accountType', ['Comptes Titres', 'PEA', 'PEA-PME'], null, ['class' => 'form-control']) !!}
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon">Broker</span>
-							<!--<input type="text" name="accountBroker" class="form-control" placeholder="Type the Broker of your account here">-->
-							<select class="form-control" name="accountBroker">
-								<option>Boursorama</option>
-								<option>Bourse Direct</option>
-								<option>Binck</option>
-								<option>Fortuneo</option>
-							</select>
+							{!! Form::select('accountBroker', ['Boursorama', 'Bourse Direct', 'Binck', 'Fortuneo'], null, ['class' => 'form-control']) !!}
 						</div>
 					</div>
 					<div class="form-group">
 						<span class="input-group-btn">
-							<button class="btn btn-default btn-primary" type="submit">Create!</button>
+							{!! Form::submit('Create', array('class' => 'btn btn-default btn-primary')) !!}
 						</span>
 					</div><!-- /input-group -->
-					</form>
+					{!! Form::close() !!}
 				</div>
 			</div><!-- panel -->
 

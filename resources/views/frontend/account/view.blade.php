@@ -32,7 +32,7 @@
 						<div class="input-group">
 							<span class="input-group-addon">Price</span>
 							{!! Form::text('transactionPrice', null, array('class' => 'form-control', 'placeholder' => "Amount of price")) !!}
-							<span class="input-group-addon">$</span>
+							<span class="input-group-addon">€</span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -58,7 +58,7 @@
 						<div class="input-group">
 							<span class="input-group-addon">Price</span>
 							{!! Form::text('cashPrice', null, array('class' => 'form-control', 'placeholder' => "Amount of price")) !!}
-							<span class="input-group-addon">$</span>
+							<span class="input-group-addon">€</span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -74,8 +74,15 @@
 
 		<div class="col-md-7">
 
+			<div class="panel panel-primary">
+				<div class="panel-heading"><i class="fa fa-home"></i> My Account summary</div>
+				<div class="panel-body">
+					Cash : {{ $transactions[0]->account->getCashAmount() }}
+				</div>
+			</div>
+
 			<div class="panel panel-default">
-				<div class="panel-heading"><i class="fa fa-home"></i> My Transactions</div>
+				<div class="panel-heading"><i class="fa fa-tasks"></i> My Transactions</div>
 
 				<div class="panel-body">
 

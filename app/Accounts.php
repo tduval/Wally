@@ -31,4 +31,18 @@ class Accounts extends Model
     public function transactions() {
   		return $this->hasMany('App\Transactions', 'account_id');
   	}
+
+    public function getCashAmount() {
+      $transactions = $this->transactions;
+      $amount = 0;
+      foreach ($transactions as $t) {
+        if ($t['type'] == 'Deposit'){
+          $amount += $t['price'];
+        }elseif ($t['type'] == 'Withdrawal'){
+          $amount -= $t['price'];
+        }
+      }
+      return $amount;
+    }
+
 }

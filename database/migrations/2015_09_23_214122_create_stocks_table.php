@@ -12,13 +12,13 @@ class CreateStocksTable extends Migration
      */
     public function up()
     {
-        Schema::create('stocks', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-			$table->string('type');
-			$table->string('exchange');
-			$table->string('symbol');
-        });
+      Schema::create('stocks', function (Blueprint $table) {
+        $table->increments('id');
+        $table->string('name');
+  			$table->string('type');
+  			$table->string('exchange');
+  			$table->string('symbol');
+      });
     }
 
     /**
@@ -28,6 +28,6 @@ class CreateStocksTable extends Migration
      */
     public function down()
     {
-        Schema::drop('stocks');
+      Schema::drop('stocks');
     }
 }

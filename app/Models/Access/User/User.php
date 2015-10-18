@@ -80,4 +80,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 			return "<label class='label label-success'>Yes</label>";
 		return "<label class='label label-danger'>No</label>";
 	}
+
+	public function accounts() {
+		return $this->hasMany('App\Accounts');
+	}
+
 }

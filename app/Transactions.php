@@ -14,4 +14,12 @@ class Transactions extends Model
      */
     protected $table = 'transactions';
 
+    public function account() {
+  		return $this->belongsTo('App\Accounts');
+  	}
+
+    public function stock() {
+  		return $this->hasOne('App\Stocks');
+  	}
+
 }

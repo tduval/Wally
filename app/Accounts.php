@@ -23,4 +23,12 @@ class Accounts extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    public function user() {
+  		return $this->belongsTo('App\Models\Access\User');
+  	}
+
+    public function transactions() {
+  		return $this->hasMany('App\Transactions');
+  	}
 }

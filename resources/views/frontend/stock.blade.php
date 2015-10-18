@@ -47,7 +47,7 @@
 										<td>{{ $stock['name'] }}</td>
 										<td>{{ $stock['exchDisp'] }}</td>
 										<td>{{ $stock['typeDisp'] }}</td>
-										<td><a href="{{ url('/stock/']) }}" class="fa fa-eye"></td>
+										<td><a href="{{ url('/stock/') }}" class="fa fa-eye"></td>
 									</tr>
 								@endforeach
 							@endif

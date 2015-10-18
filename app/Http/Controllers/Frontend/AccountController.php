@@ -7,6 +7,8 @@ use App\Accounts;
 use App\YahooFinanceQuery;
 use App\Transactions;
 use App\Stocks;
+use App\Http\Requests\Frontend\Account\TransactionRequest;
+use App\Http\Requests\Frontend\Account\AccountRequest;
 
 /**
  * Class AccountController
@@ -24,7 +26,7 @@ class AccountController extends Controller {
 		return view('frontend.account.view', ['transactions' => $transactions, 'id' => $id, 'stocks' => $stocks]);
 	}
 
-	public function createAccount(Request $request)
+	public function createAccount(AccountRequest $request)
 	{
 		$account = new Accounts;
 		$account->user_id = auth()->user()->id;
@@ -44,7 +46,7 @@ class AccountController extends Controller {
 		return redirect('portfolio');
 	}
 
-	public function addTransaction(Request $request, $id)
+	public function addTransaction(TransactionRequest $request, $id)
 	{
 		$query = new YahooFinanceQuery;
 		$requestStock = $request->input('TransactionStock');

@@ -19,13 +19,13 @@
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon">Type</span>
-							{!! Form::select('accountType', ['Comptes Titres', 'PEA', 'PEA-PME'], null, ['class' => 'form-control']) !!}
+							{!! Form::select('accountType', ['Comptes Titres' => 'Comptes Titres', 'PEA' => 'PEA', 'PEA-PME' => 'PEA-PME'], null, ['class' => 'form-control']) !!}
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon">Broker</span>
-							{!! Form::select('accountBroker', ['Boursorama', 'Bourse Direct', 'Binck', 'Fortuneo'], null, ['class' => 'form-control']) !!}
+							{!! Form::select('accountBroker', ['Boursorama' => 'Boursorama', 'Bourse Direct' => 'Bourse Direct', 'Binck' => 'Binck', 'Fortuneo' => 'Fortuneo'], null, ['class' => 'form-control']) !!}
 						</div>
 					</div>
 					<div class="form-group">
@@ -64,8 +64,8 @@
 										<td>{{ $account['name'] }}</td>
 										<td>{{ $account['type'] }}</td>
 										<td>{{ $account['broker'] }}</td>
-										<td><a href="{{ url("/account/$account->id") }}" class="fa fa-eye">
-												<a href="{{ url("/account/$account->id/delete") }}" class="fa fa-trash-o"></td>
+										<td><a href="{{ url("/account/$account->id") }}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+												<a href="{{ url("/account/$account->id/delete") }}" class="btn btn-xs btn-danger"><i class="fa fa-trash-o"></i></a></td>
 									</tr>
 								@endforeach
 							@endif

@@ -19,7 +19,7 @@
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon">Type</span>
-							{!! Form::select('transactionType', ['Buy' => 'Buy', 'Sell' => 'Sell', 'Deposit' => 'Deposit', 'Withdrawal' => 'Withdrawal'], null, ['class' => 'form-control']) !!}
+							{!! Form::select('transactionType', ['Buy' => 'Buy', 'Sell' => 'Sell'], null, ['class' => 'form-control']) !!}
 						</div>
 					</div>
 					<div class="form-group">
@@ -44,7 +44,33 @@
 				</div>
 			</div><!-- panel -->
 
-		</div><!-- col-md-10 -->
+			<div class="panel panel-default">
+				<div class="panel-heading"><i class="fa fa-search"></i> Add Account Cash</div>
+				<div class="panel-body">
+					{!! Form::open(array('url' => '/account/'.$id.'/cash', 'method' => 'POST')) !!}
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon">Type</span>
+							{!! Form::select('cashType', ['Deposit' => 'Deposit', 'Withdrawal' => 'Withdrawal'], null, ['class' => 'form-control']) !!}
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon">Price</span>
+							{!! Form::text('cashPrice', null, array('class' => 'form-control', 'placeholder' => "Amount of price")) !!}
+							<span class="input-group-addon">$</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<span class="input-group-btn">
+							{!! Form::submit('Add', array('class' => 'btn btn-default btn-success')) !!}
+						</span>
+					</div><!-- /input-group -->
+					{!! Form::close() !!}
+				</div>
+			</div><!-- panel -->
+
+		</div><!-- col-md-3 -->
 
 		<div class="col-md-7">
 
@@ -56,30 +82,28 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th>Date</th>
 								<th>Stock Name</th>
 								<th>Type</th>
 								<th>Quantity</th>
 								<th>Price</th>
 								<th>Commission</th>
-								<th>Date</th>
 							</tr>
 						</thead>
 						<tbody>
 							@if (isset($transactions))
 								@foreach ($transactions as $transaction)
 									<tr>
-										<th scope="row">{{ $transaction['id'] }}</th>
+										<td scope="row">{{ $transaction['created_at'] }}</td>
 										@foreach ($stocks as $stock)
 											@if ($stock['id'] == $transaction['stock_id'])
-												<td>{{ $stock['name'] }}</td>
+												<th>{{ $stock['name'] }}</th>
 											@endif
 										@endforeach
 										<td>{{ $transaction['type'] }}</td>
 										<td>{{ $transaction['quantity'] }}</td>
 										<td>{{ $transaction['price'] }}</td>
 										<td>{{ $transaction['commission'] }}</td>
-										<td>{{ $transaction['created_at'] }}</td>
 									</tr>
 								@endforeach
 							@endif

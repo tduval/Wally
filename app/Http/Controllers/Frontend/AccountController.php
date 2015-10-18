@@ -9,6 +9,7 @@ use App\Transactions;
 use App\Stocks;
 use App\Http\Requests\Frontend\Account\TransactionRequest;
 use App\Http\Requests\Frontend\Account\AccountRequest;
+use App\Http\Requests\Frontend\Account\CashRequest;
 
 /**
  * Class AccountController
@@ -21,7 +22,7 @@ class AccountController extends Controller {
 	 */
 	public function index($id)
 	{
-		$transactions = Transactions::where('account_id', $id)->get();
+		$transactions = Accounts::findOrFail($id)->transactions;
 		$stocks = Stocks::all();
 		return view('frontend.account.view', ['transactions' => $transactions, 'id' => $id, 'stocks' => $stocks]);
 	}
@@ -63,6 +64,17 @@ class AccountController extends Controller {
 		$transaction->type = $request->input('transactionType');
 		$transaction->quantity = $request->input('transactionQuantity');
 		$transaction->price = $request->input('transactionPrice');
+		$transaction->save();
+		return back();
+	}
+
+	public function cash(CashRequest $request, $id)
+	{
+		$transaction = new Transactions;
+		$transaction->account_id = $id;
+		$transaction->stock_id = '0';
+		$transaction->type = $request->input('cashType');
+		$transaction->price = $request->input('cashPrice');
 		$transaction->save();
 		return back();
 	}

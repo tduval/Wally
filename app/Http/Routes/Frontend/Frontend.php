@@ -24,6 +24,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 		get('/', 'AccountController@index')->name('frontend.account');
 		get('delete', 'AccountController@deleteAccount')->name('frontend.account');
 		post('/', 'AccountController@addTransaction')->name('frontend.account');
+		post('/cash', 'AccountController@cash')->name('frontend.account');
 	});
 
 });

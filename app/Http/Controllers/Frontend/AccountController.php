@@ -49,9 +49,8 @@ class AccountController extends Controller {
 	public function addTransaction(TransactionRequest $request, $id)
 	{
 		$query = new YahooFinanceQuery;
-		$requestStock = $request->input('TransactionStock');
+		$requestStock = $request->input('transactionStock');
     $data = $query->symbolSuggest($requestStock)->get()[0];
-		debug($data);
 		$stock = Stocks::firstOrNew(array('symbol' => $data['symbol']));
 		$stock->name = $data['name'];
 		$stock->type = $data['typeDisp'];
@@ -61,9 +60,9 @@ class AccountController extends Controller {
 		$transaction = new Transactions;
 		$transaction->account_id = $id;
 		$transaction->stock_id = $stock->id;
-		$transaction->type = $request->transactionType;
-		$transaction->quantity = $request->transactionQuantity;
-		$transaction->price = $request->transactionPrice;
+		$transaction->type = $request->input('transactionType');
+		$transaction->quantity = $request->input('transactionQuantity');
+		$transaction->price = $request->input('transactionPrice');
 		$transaction->save();
 		return back();
 	}

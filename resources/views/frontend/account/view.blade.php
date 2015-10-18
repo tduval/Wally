@@ -19,7 +19,7 @@
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon">Type</span>
-							{!! Form::select('transactionType', ['Buy', 'Sell', 'Deposit', 'Withdrawal'], null, ['class' => 'form-control']) !!}
+							{!! Form::select('transactionType', ['Buy' => 'Buy', 'Sell' => 'Sell', 'Deposit' => 'Deposit', 'Withdrawal' => 'Withdrawal'], null, ['class' => 'form-control']) !!}
 						</div>
 					</div>
 					<div class="form-group">

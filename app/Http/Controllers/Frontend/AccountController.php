@@ -43,7 +43,7 @@ class AccountController extends Controller {
 		$transaction->price = $request->accountCash;
 		$transaction->save();
 
-		return back();
+		return redirect()->back()->withFlashSuccess("Account \"".$account->name."\" successfully created.");
 	}
 
 	public function deleteAccount($id)
@@ -54,7 +54,7 @@ class AccountController extends Controller {
 			$transaction->delete();
 		}
 		$account->delete();
-		return back();
+		return redirect()->back()->withFlashSuccess("Account \"".$account->name."\" successfully deleted.");
 	}
 
 	public function addTransaction(TransactionRequest $request, $id)
@@ -75,14 +75,14 @@ class AccountController extends Controller {
 		$transaction->quantity = $request->input('transactionQuantity');
 		$transaction->price = $request->input('transactionPrice');
 		$transaction->save();
-		return back();
+		return redirect()->back()->withFlashSuccess("Transaction added.");
 	}
 
 	public function deleteTransaction($id, $idtransaction)
 	{
 		$transaction = Transactions::findOrFail($idtransaction);
 		$transaction->delete();
-		return back();
+		return redirect()->back()->withFlashSuccess("Transaction removed.");
 	}
 
 	public function cash(CashRequest $request, $id)
@@ -93,7 +93,7 @@ class AccountController extends Controller {
 		$transaction->type = $request->input('cashType');
 		$transaction->price = $request->input('cashPrice');
 		$transaction->save();
-		return back();
+		return redirect()->back()->withFlashSuccess("Cash flow updated.");
 	}
 
 }

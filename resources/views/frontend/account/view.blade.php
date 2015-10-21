@@ -95,6 +95,7 @@
 								<th>Quantity</th>
 								<th>Price</th>
 								<th>Commission</th>
+								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -111,6 +112,7 @@
 										<td>{{ $transaction['quantity'] }}</td>
 										<td>{{ $transaction['price'] }}</td>
 										<td>{{ $transaction['commission'] }}</td>
+										<td><a href="{{ url("/account/".$id."/transaction/".$transaction['id']."/delete") }}" class="btn btn-xs btn-danger"><i class="fa fa-trash-o"></i></a></td>
 									</tr>
 								@endforeach
 							@endif

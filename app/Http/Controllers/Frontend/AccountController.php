@@ -42,7 +42,11 @@ class AccountController extends Controller {
 
 	public function deleteAccount($id)
 	{
-		$account = Accounts::find($id);
+		$account = Accounts::findOrFail($id);
+		$transactions = $accounts->transactions;
+		foreach ($transactions as $transaction){
+			$transaction->delete();
+		}
 		$account->delete();
 		return redirect('portfolio');
 	}
@@ -65,6 +69,13 @@ class AccountController extends Controller {
 		$transaction->quantity = $request->input('transactionQuantity');
 		$transaction->price = $request->input('transactionPrice');
 		$transaction->save();
+		return back();
+	}
+
+	public function deleteTransaction($id, $idtransaction)
+	{
+		$transaction = Transactions::findOrFail($idtransaction);
+		$transaction->delete();
 		return back();
 	}
 

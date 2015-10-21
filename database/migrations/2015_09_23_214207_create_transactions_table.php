@@ -23,6 +23,7 @@ class CreateTransactionsTable extends Migration
   			$table->decimal('price');
   			$table->decimal('commission');
         $table->timestamps();
+        $table->softDeletes();
       });
     }
 

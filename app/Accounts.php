@@ -45,4 +45,30 @@ class Accounts extends Model
       return $amount;
     }
 
+    public function getStockIDList(){
+      return $this->transactions()->where('stock_id', '!=', '0')->get()->unique('stock_id')->pluck('stock_id');
+    }
+
+    public function getInvestAmountForSpecificStock($stockid){
+      $amount = 0;
+      $transactions = $this->transactions->where('stock_id', $stockid);
+      foreach ($transactions as $t) {
+        if ($t['type'] == "Buy"){
+          $amount += $t['price']*$t['quantity'];
+        }elseif ($t['type'] == 'Sell') {
+          $amount -= $t['price']*$t['quantity'];
+        }
+      }
+      return $amount;
+    }
+
+    public function getInvestAmountForAllStock(){
+      $amount = 0;
+      $stocks = $this->getStockIDList();
+      foreach ($stocks as $s) {
+        $amount += $this->getInvestAmountForSpecificStock($s);
+      }
+      return $amount;
+    }
+
 }

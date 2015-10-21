@@ -78,6 +78,7 @@
 				<div class="panel-heading"><i class="fa fa-home"></i> My Account summary</div>
 				<div class="panel-body">
 					Cash : {{ $transactions[0]->account->getCashAmount() }}
+					Total Investment : {{ $transactions[0]->account->getInvestAmountForAllStock() }}
 				</div>
 			</div>
 

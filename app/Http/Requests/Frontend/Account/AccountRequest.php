@@ -29,6 +29,7 @@ class AccountRequest extends Request {
 			'accountName' 	=> 'required',
 			'accountType'  => 'required',
 			'accountBroker' => 'required',
+			'accountCash' => 'required|numeric',
 		];
 	}
 }

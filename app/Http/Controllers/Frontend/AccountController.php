@@ -36,19 +36,25 @@ class AccountController extends Controller {
 		$account->broker = $request->accountBroker;
     $account->save();
 
-		$accounts = Accounts::where('user_id', auth()->user()->id)->get();
-		return redirect('portfolio');
+		$transaction = new Transactions;
+		$transaction->account_id = $account->id;
+		$transaction->stock_id = '0';
+		$transaction->type = 'Deposit';
+		$transaction->price = $request->accountCash;
+		$transaction->save();
+
+		return back();
 	}
 
 	public function deleteAccount($id)
 	{
 		$account = Accounts::findOrFail($id);
-		$transactions = $accounts->transactions;
+		$transactions = $account->transactions;
 		foreach ($transactions as $transaction){
 			$transaction->delete();
 		}
 		$account->delete();
-		return redirect('portfolio');
+		return back();
 	}
 
 	public function addTransaction(TransactionRequest $request, $id)

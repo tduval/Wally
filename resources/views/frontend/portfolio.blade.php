@@ -29,6 +29,13 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon">Price</span>
+							{!! Form::text('accountCash', null, array('class' => 'form-control', 'placeholder' => "Amount of cash")) !!}
+							<span class="input-group-addon">€</span>
+						</div>
+					</div>
+					<div class="form-group">
 						<span class="input-group-btn">
 							{!! Form::submit('Create', array('class' => 'btn btn-default btn-primary')) !!}
 						</span>

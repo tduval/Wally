@@ -29,7 +29,7 @@ class Transactions extends Model
   	}
 
     public function stock() {
-  		return $this->hasOne('App\Stocks');
+  		return $this->belongsTo('App\Stocks', 'stock_id');
   	}
 
 }

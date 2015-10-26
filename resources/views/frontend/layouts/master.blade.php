@@ -42,7 +42,7 @@
         @yield('before-scripts-end')
         {!! HTML::script(elixir('js/frontend.js')) !!}
         @yield('after-scripts-end')
-		
+
 		<!-- Include Google Analytics script -->
 		<!-- ('includes.partials.ga')-->
     </body>

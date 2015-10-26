@@ -22,9 +22,9 @@ class AccountController extends Controller {
 	 */
 	public function index($id)
 	{
-		$transactions = Accounts::findOrFail($id)->transactions;
-		$stocks = Stocks::all();
-		return view('frontend.account.view', ['transactions' => $transactions, 'id' => $id, 'stocks' => $stocks]);
+		$account = Accounts::findOrFail($id);
+		$transactions = $account->transactions;
+		return view('frontend.account.view', ['transactions' => $transactions, 'id' => $id, 'account' => $account]);
 	}
 
 	public function createAccount(AccountRequest $request)

@@ -3,12 +3,12 @@
 @section('content')
 	<div class="row">
 
-		<div class="col-md-3 col-md-offset-1">
+		<div class="col-md-3">
 
 			<div class="panel panel-default">
 				<div class="panel-heading"><i class="fa fa-search"></i> Add a Transaction</div>
 				<div class="panel-body">
-					{!! Form::open(array('url' => '/account/'.$id, 'method' => 'POST')) !!}
+					{!! Form::open(array('url' => '/account/'.$account->id, 'method' => 'POST')) !!}
 
 					<div class="form-group">
 						<div class="input-group">
@@ -47,7 +47,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading"><i class="fa fa-search"></i> Add Account Cash</div>
 				<div class="panel-body">
-					{!! Form::open(array('url' => '/account/'.$id.'/cash', 'method' => 'POST')) !!}
+					{!! Form::open(array('url' => '/account/'.$account->id.'/cash', 'method' => 'POST')) !!}
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon">Type</span>
@@ -72,22 +72,60 @@
 
 		</div><!-- col-md-3 -->
 
-		<div class="col-md-7">
+		<div class="col-md-8">
 
 			<div class="panel panel-primary">
 				<div class="panel-heading"><i class="fa fa-home"></i> My Account summary</div>
 				<div class="panel-body">
-					Cash : {{ $transactions[0]->account->getCashAmount() }}
-					Total Investment : {{ $transactions[0]->account->getInvestAmountForAllStock() }}
+					Cash : {{ $account->getCashAmount() }}
+					Total Investment : {{ $account->getInvestAmountForAllStock() }}
 				</div>
 			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading"><i class="fa fa-tasks"></i> My Stock Quote</div>
+				<div class="panel-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Symbol</th>
+								<th>Name</th>
+								<th>Exchange</th>
+								<th>Investment</th>
+								<th>Current Price</th>
+								<th>Valorisation</th>
+								<th>Change %</th>
+								<th>Performance €</th>
+								<th>Performance %</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($account->getStocksCollection() as $st)
+							{{--*/ $quote = $st->getCurrentQuote() /*--}}
+								<tr>
+									<td scope="row">{{ $st->symbol }}</td>
+									<td>{{ $st->name }}</td>
+									<td>{{ $st->exchange }}</td>
+									<td>{{ $account->getInvestAmountForSpecificStock($st->id) }}</td>
+									<td>{{ $quote['LastTradePriceOnly'] }}</td>
+									<td>{{ $account->getTotalQuantityForSpecificStock($st->id)*$quote['LastTradePriceOnly'] }}</td>
+									<td>{{ $quote['ChangeinPercent'] }}</td>
+									<td>{{ ($account->getTotalQuantityForSpecificStock($st->id)*$quote['LastTradePriceOnly']) - ($account->getInvestAmountForSpecificStock($st->id)) }}</td>
+									<td>{{ round(((($account->getTotalQuantityForSpecificStock($st->id)*$quote['LastTradePriceOnly'])-($account->getInvestAmountForSpecificStock($st->id)))/($account->getInvestAmountForSpecificStock($st->id))*100), 2) }}%</td>
+								</tr>
+							@endforeach
+						</tbody>
+					</table>
+
+				</div>
+			</div><!-- panel -->
 
 			<div class="panel panel-default">
 				<div class="panel-heading"><i class="fa fa-tasks"></i> My Transactions</div>
 
 				<div class="panel-body">
 
-					<table class="table table-hover">
+					<table class="table table-hover table-condensed">
 						<thead>
 							<tr>
 								<th>Date</th>
@@ -100,31 +138,26 @@
 							</tr>
 						</thead>
 						<tbody>
-							@if (isset($transactions))
-								@foreach ($transactions as $transaction)
-									<tr>
-										<td scope="row">{{ $transaction['created_at'] }}</td>
-										@foreach ($stocks as $stock)
-											@if ($stock['id'] == $transaction['stock_id'])
-												<th>{{ $stock['name'] }}</th>
-											@endif
-										@endforeach
-										<td>{{ $transaction['type'] }}</td>
-										<td>{{ $transaction['quantity'] }}</td>
-										<td>{{ $transaction['price'] }}</td>
-										<td>{{ $transaction['commission'] }}</td>
-										<td><a href="{{ url("/account/".$id."/transaction/".$transaction['id']."/delete") }}" class="btn btn-xs btn-danger"><i class="fa fa-trash-o"></i></a></td>
-									</tr>
-								@endforeach
-							@endif
+							@foreach ($account->transactions as $transaction)
+								<tr>
+									<td scope="row">{{ $transaction->created_at }}</td>
+									<td>{{ $transaction->stock->name }}</td>
+									<td>{{ $transaction->type }}</td>
+									<td>{{ $transaction->quantity }}</td>
+									<td>{{ $transaction->price }}</td>
+									<td>{{ $transaction->commission }}</td>
+									<td><a href="{{ url("/account/".$account->id."/transaction/".$transaction->id."/delete") }}" class="btn btn-xs btn-danger"><i class="fa fa-trash-o"></i></a></td>
+								</tr>
+							@endforeach
 						</tbody>
 					</table>
 
 				</div>
 			</div><!-- panel -->
 
-		</div><!-- col-md-10 -->
+		</div><!-- col-md-8 -->
 
 	</div><!-- row -->
+
 
 @endsection

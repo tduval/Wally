@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Accounts extends Model
+class Account extends Model
 {
 
     use SoftDeletes;
@@ -29,11 +29,11 @@ class Accounts extends Model
   	}
 
     public function transactions() {
-  		return $this->hasMany('App\Transactions', 'account_id');
+  		return $this->hasMany('App\Transaction', 'account_id');
   	}
 
     public function stocks(){
-      return $this->belongsToMany('App\Stocks', 'transactions', 'account_id', 'stock_id');
+      return $this->belongsToMany('App\Stock', 'transactions', 'account_id', 'stock_id');
     }
 
     public function getAllTransactionsForSpecificStock($stockid) {
@@ -58,7 +58,7 @@ class Accounts extends Model
     }
 
     public function getStocksCollection(){
-      return Stocks::findOrFail($this->getStockIDList()->toArray());
+      return Stock::findOrFail($this->getStockIDList()->toArray());
     }
 
     public function getInvestAmountForSpecificStock($stockid){

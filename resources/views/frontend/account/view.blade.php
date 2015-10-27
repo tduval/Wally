@@ -84,7 +84,6 @@
 
 			<div class="panel panel-default">
 				<div class="panel-heading"><i class="fa fa-tasks"></i> My Stock Quote</div>
-				<div class="panel-body">
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -117,7 +116,6 @@
 						</tbody>
 					</table>
 
-				</div>
 			</div><!-- panel -->
 
 			<div class="panel panel-default">
@@ -158,6 +156,5 @@
 		</div><!-- col-md-8 -->
 
 	</div><!-- row -->
-
 
 @endsection

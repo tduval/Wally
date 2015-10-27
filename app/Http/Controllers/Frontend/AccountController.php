@@ -3,10 +3,10 @@
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use App\Accounts;
+use App\Account;
 use App\YahooFinanceQuery;
-use App\Transactions;
-use App\Stocks;
+use App\Transaction;
+use App\Stock;
 use App\Http\Requests\Frontend\Account\TransactionRequest;
 use App\Http\Requests\Frontend\Account\AccountRequest;
 use App\Http\Requests\Frontend\Account\CashRequest;
@@ -22,21 +22,20 @@ class AccountController extends Controller {
 	 */
 	public function index($id)
 	{
-		$account = Accounts::findOrFail($id);
-		$transactions = $account->transactions;
-		return view('frontend.account.view', ['transactions' => $transactions, 'id' => $id, 'account' => $account]);
+		$account = Account::findOrFail($id);
+		return view('frontend.account.view', ['account' => $account]);
 	}
 
 	public function createAccount(AccountRequest $request)
 	{
-		$account = new Accounts;
+		$account = new Account;
 		$account->user_id = auth()->user()->id;
     $account->name = $request->accountName;
 		$account->type = $request->accountType;
 		$account->broker = $request->accountBroker;
     $account->save();
 
-		$transaction = new Transactions;
+		$transaction = new Transaction;
 		$transaction->account_id = $account->id;
 		$transaction->stock_id = '0';
 		$transaction->type = 'Deposit';
@@ -48,7 +47,7 @@ class AccountController extends Controller {
 
 	public function deleteAccount($id)
 	{
-		$account = Accounts::findOrFail($id);
+		$account = Account::findOrFail($id);
 		$transactions = $account->transactions;
 		foreach ($transactions as $transaction){
 			$transaction->delete();
@@ -62,13 +61,13 @@ class AccountController extends Controller {
 		$query = new YahooFinanceQuery;
 		$requestStock = $request->input('transactionStock');
     $data = $query->symbolSuggest($requestStock)->get()[0];
-		$stock = Stocks::firstOrNew(array('symbol' => $data['symbol']));
+		$stock = Stock::firstOrNew(array('symbol' => $data['symbol']));
 		$stock->name = $data['name'];
 		$stock->type = $data['typeDisp'];
 		$stock->exchange = $data['exchDisp'];
 		$stock->save();
 
-		$transaction = new Transactions;
+		$transaction = new Transaction;
 		$transaction->account_id = $id;
 		$transaction->stock_id = $stock->id;
 		$transaction->type = $request->input('transactionType');
@@ -80,14 +79,14 @@ class AccountController extends Controller {
 
 	public function deleteTransaction($id, $idtransaction)
 	{
-		$transaction = Transactions::findOrFail($idtransaction);
+		$transaction = Transaction::findOrFail($idtransaction);
 		$transaction->delete();
 		return redirect()->back()->withFlashSuccess("Transaction removed.");
 	}
 
 	public function cash(CashRequest $request, $id)
 	{
-		$transaction = new Transactions;
+		$transaction = new Transaction;
 		$transaction->account_id = $id;
 		$transaction->stock_id = '0';
 		$transaction->type = $request->input('cashType');

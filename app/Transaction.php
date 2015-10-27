@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Transactions extends Model
+class Transaction extends Model
 {
 
     use SoftDeletes;
@@ -25,11 +25,11 @@ class Transactions extends Model
     protected $dates = ['deleted_at'];
 
     public function account() {
-  		return $this->belongsTo('App\Accounts');
+  		return $this->belongsTo('App\Account');
   	}
 
     public function stock() {
-  		return $this->belongsTo('App\Stocks', 'stock_id');
+  		return $this->belongsTo('App\Stock', 'stock_id');
   	}
 
 }

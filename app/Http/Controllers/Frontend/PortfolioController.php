@@ -3,7 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use App\Accounts;
+use App\Account;
 /**
  * Class AccountController
  * @package App\Http\Controllers\Frontend
@@ -15,7 +15,7 @@ class PortfolioController extends Controller {
 	 */
 	public function index()
 	{
-		$accounts = Accounts::where('user_id', auth()->user()->id)->get();
+		$accounts = Account::where('user_id', auth()->user()->id)->get();
 		return view('frontend.portfolio', ['accounts' => $accounts]);
 	}
 

@@ -22,6 +22,7 @@
         <!-- Place favicon.ico in the root directory -->
 
         {!! HTML::script("js/vendor/modernizr-2.8.3.min.js") !!}
+        
     </head>
     <body>
         <!--[if lt IE 8]>
@@ -36,6 +37,7 @@
         </div><!-- container -->
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
         <script>window.jQuery || document.write('<script src="{{asset('js/vendor/jquery-1.11.2.min.js')}}"><\/script>')</script>
         {!! HTML::script('js/vendor/bootstrap.min.js') !!}
 

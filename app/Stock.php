@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\YahooFinanceQuery;
 
-class Stocks extends Model
+class Stock extends Model
 {
 
     /**
@@ -30,11 +30,11 @@ class Stocks extends Model
     protected $fillable = ['name', 'type', 'exchange', 'symbol'];
 
     public function transactions(){
-      return $this->hasMany('App\Transactions', 'stock_id');
+      return $this->hasMany('App\Transaction', 'stock_id');
     }
 
     public function accounts(){
-      return $this->belongsToMany('App\Accounts', 'transactions', 'stock_id', 'account_id');
+      return $this->belongsToMany('App\Account', 'transactions', 'stock_id', 'account_id');
     }
 
     public function getCurrentQuote(){

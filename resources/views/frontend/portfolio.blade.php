@@ -12,25 +12,25 @@
 					{!! Form::open(array('url' => '/account', 'method' => 'POST')) !!}
 					<div class="form-group">
 						<div class="input-group">
-							<span class="input-group-addon">Name</span>
+							<span class="input-group-addon" style="min-width:75px;">Name</span>
 							{!! Form::text('accountName', null, array('class' => 'form-control', 'placeholder' => "Type an account name here")) !!}
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
-							<span class="input-group-addon">Type</span>
+							<span class="input-group-addon" style="min-width:75px;">Type</span>
 							{!! Form::select('accountType', ['Comptes Titres' => 'Comptes Titres', 'PEA' => 'PEA', 'PEA-PME' => 'PEA-PME'], null, ['class' => 'form-control']) !!}
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
-							<span class="input-group-addon">Broker</span>
+							<span class="input-group-addon" style="min-width:75px;">Broker</span>
 							{!! Form::select('accountBroker', ['Boursorama' => 'Boursorama', 'Bourse Direct' => 'Bourse Direct', 'Binck' => 'Binck', 'Fortuneo' => 'Fortuneo'], null, ['class' => 'form-control']) !!}
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
-							<span class="input-group-addon">Price</span>
+							<span class="input-group-addon" style="min-width:75px;">Price</span>
 							{!! Form::text('accountCash', null, array('class' => 'form-control', 'placeholder' => "Amount of cash")) !!}
 							<span class="input-group-addon">€</span>
 						</div>

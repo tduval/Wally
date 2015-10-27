@@ -12,25 +12,25 @@
 
 					<div class="form-group">
 						<div class="input-group">
-							<span class="input-group-addon">Stock</span>
+							<span class="input-group-addon" style="min-width:75px;">Stock</span>
 							{!! Form::text('transactionStock', null, array('class' => 'form-control', 'placeholder' => "Type a stock security here")) !!}
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
-							<span class="input-group-addon">Type</span>
+							<span class="input-group-addon" style="min-width:75px;">Type</span>
 							{!! Form::select('transactionType', ['Buy' => 'Buy', 'Sell' => 'Sell'], null, ['class' => 'form-control']) !!}
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
-							<span class="input-group-addon">Quantity</span>
+							<span class="input-group-addon" style="min-width:75px;">Quantity</span>
 							{!! Form::text('transactionQuantity', null, array('class' => 'form-control', 'placeholder' => "Number of Shares")) !!}
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
-							<span class="input-group-addon">Price</span>
+							<span class="input-group-addon" style="min-width:75px;">Price</span>
 							{!! Form::text('transactionPrice', null, array('class' => 'form-control', 'placeholder' => "Amount of price")) !!}
 							<span class="input-group-addon">€</span>
 						</div>
@@ -50,13 +50,13 @@
 					{!! Form::open(array('url' => '/account/'.$account->id.'/cash', 'method' => 'POST')) !!}
 					<div class="form-group">
 						<div class="input-group">
-							<span class="input-group-addon">Type</span>
+							<span class="input-group-addon" style="min-width:75px;">Type</span>
 							{!! Form::select('cashType', ['Deposit' => 'Deposit', 'Withdrawal' => 'Withdrawal'], null, ['class' => 'form-control']) !!}
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
-							<span class="input-group-addon">Price</span>
+							<span class="input-group-addon" style="min-width:75px;">Price</span>
 							{!! Form::text('cashPrice', null, array('class' => 'form-control', 'placeholder' => "Amount of price")) !!}
 							<span class="input-group-addon">€</span>
 						</div>

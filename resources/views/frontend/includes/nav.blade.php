@@ -13,7 +13,6 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li>{!! link_to('/', trans('navs.home')) !!}</li>
-					<li>{!! link_to('macros', trans('navs.macros')) !!}</li>
 					<li>{!! link_to('stock', "Stock") !!}</li>
 					<li>{!! link_to('portfolio', "Portfolio") !!}</li>
 				</ul>
@@ -33,16 +32,14 @@
 						<li>{!! link_to('auth/login', trans('navs.login')) !!}</li>
 						<li>{!! link_to('auth/register', trans('navs.register')) !!}</li>
 					@else
+          @if (access()->can('view-backend'))
+            <li>{!! link_to_route('backend.dashboard', trans('navs.administration')) !!}</li>
+          @endif
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-							    <li>{!! link_to('dashboard', trans('navs.dashboard')) !!}</li>
-							    <li>{!! link_to('auth/password/change', trans('navs.change_password')) !!}</li>
-
-							    @if (access()->can('view-backend'))
-							        <li>{!! link_to_route('backend.dashboard', trans('navs.administration')) !!}</li>
-							    @endif
-
+							  <li>{!! link_to('dashboard', trans('navs.dashboard')) !!}</li>
+							  <li>{!! link_to('auth/password/change', trans('navs.change_password')) !!}</li>
 								<li>{!! link_to('auth/logout', trans('navs.logout')) !!}</li>
 							</ul>
 						</li>

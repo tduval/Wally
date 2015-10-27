@@ -3,75 +3,6 @@
 @section('content')
 	<div class="row">
 
-		<div class="col-md-3">
-
-			<div class="panel panel-default">
-				<div class="panel-heading"><i class="fa fa-search"></i> Add a Transaction</div>
-				<div class="panel-body">
-					{!! Form::open(array('url' => '/account/'.$account->id, 'method' => 'POST')) !!}
-
-					<div class="form-group">
-						<div class="input-group">
-							<span class="input-group-addon" style="min-width:75px;">Stock</span>
-							{!! Form::text('transactionStock', null, array('class' => 'form-control', 'placeholder' => "Type a stock security here")) !!}
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="input-group">
-							<span class="input-group-addon" style="min-width:75px;">Type</span>
-							{!! Form::select('transactionType', ['Buy' => 'Buy', 'Sell' => 'Sell'], null, ['class' => 'form-control']) !!}
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="input-group">
-							<span class="input-group-addon" style="min-width:75px;">Quantity</span>
-							{!! Form::text('transactionQuantity', null, array('class' => 'form-control', 'placeholder' => "Number of Shares")) !!}
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="input-group">
-							<span class="input-group-addon" style="min-width:75px;">Price</span>
-							{!! Form::text('transactionPrice', null, array('class' => 'form-control', 'placeholder' => "Amount of price")) !!}
-							<span class="input-group-addon">€</span>
-						</div>
-					</div>
-					<div class="form-group">
-						<span class="input-group-btn">
-							{!! Form::submit('Add', array('class' => 'btn btn-default btn-primary')) !!}
-						</span>
-					</div><!-- /input-group -->
-					{!! Form::close() !!}
-				</div>
-			</div><!-- panel -->
-
-			<div class="panel panel-default">
-				<div class="panel-heading"><i class="fa fa-search"></i> Add Account Cash</div>
-				<div class="panel-body">
-					{!! Form::open(array('url' => '/account/'.$account->id.'/cash', 'method' => 'POST')) !!}
-					<div class="form-group">
-						<div class="input-group">
-							<span class="input-group-addon" style="min-width:75px;">Type</span>
-							{!! Form::select('cashType', ['Deposit' => 'Deposit', 'Withdrawal' => 'Withdrawal'], null, ['class' => 'form-control']) !!}
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="input-group">
-							<span class="input-group-addon" style="min-width:75px;">Price</span>
-							{!! Form::text('cashPrice', null, array('class' => 'form-control', 'placeholder' => "Amount of price")) !!}
-							<span class="input-group-addon">€</span>
-						</div>
-					</div>
-					<div class="form-group">
-						<span class="input-group-btn">
-							{!! Form::submit('Add', array('class' => 'btn btn-default btn-success')) !!}
-						</span>
-					</div><!-- /input-group -->
-					{!! Form::close() !!}
-				</div>
-			</div><!-- panel -->
-
-		</div><!-- col-md-3 -->
-
 		<div class="col-md-8">
 
 			<div class="panel panel-primary">
@@ -83,7 +14,13 @@
 			</div>
 
 			<div class="panel panel-default">
-				<div class="panel-heading"><i class="fa fa-tasks"></i> My Stock Quote</div>
+				<div class="panel-heading"><i class="fa fa-tasks"></i> My Stock Quote
+					<div class="btn-group pull-right">
+						<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalAddTransaction">Add Transaction</button>
+						<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalAddCash">Add Cash</button>
+					</div>
+				</div>
+
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -156,5 +93,95 @@
 		</div><!-- col-md-8 -->
 
 	</div><!-- row -->
+
+	<!-- Modal AddTransaction -->
+	<div class="modal fade" id="modalAddTransaction" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus-circle"></i> Add a new Transaction</h4>
+	      </div>
+				{!! Form::open(array('url' => '/account/'.$account->id, 'method' => 'POST')) !!}
+	      <div class="modal-body">
+
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon" style="min-width:75px;">Stock</span>
+							{!! Form::text('transactionStock', null, array('class' => 'form-control', 'placeholder' => "Type a stock security here")) !!}
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon" style="min-width:75px;">Type</span>
+							{!! Form::select('transactionType', ['Buy' => 'Buy', 'Sell' => 'Sell'], null, ['class' => 'form-control']) !!}
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon" style="min-width:75px;">Quantity</span>
+							{!! Form::text('transactionQuantity', null, array('class' => 'form-control', 'placeholder' => "Number of Shares")) !!}
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon" style="min-width:75px;">Price</span>
+							{!! Form::text('transactionPrice', null, array('class' => 'form-control', 'placeholder' => "Amount of price")) !!}
+							<span class="input-group-addon">€</span>
+						</div>
+					</div>
+
+	      </div>
+	      <div class="modal-footer">
+					<div class="form-group">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							{!! Form::submit('Add', array('class' => 'btn btn-default btn-primary')) !!}
+						</span>
+					</div><!-- /input-group -->
+	      </div>
+				{!! Form::close() !!}
+	    </div>
+	  </div>
+	</div><!-- end of Modal -->
+
+	<!-- Modal AddCash -->
+	<div class="modal fade" id="modalAddCash" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus-circle"></i> Manage Liquidity</h4>
+	      </div>
+				{!! Form::open(array('url' => '/account/'.$account->id.'/cash', 'method' => 'POST')) !!}
+	      <div class="modal-body">
+
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon" style="min-width:75px;">Type</span>
+							{!! Form::select('cashType', ['Deposit' => 'Deposit', 'Withdrawal' => 'Withdrawal'], null, ['class' => 'form-control']) !!}
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon" style="min-width:75px;">Price</span>
+							{!! Form::text('cashPrice', null, array('class' => 'form-control', 'placeholder' => "Amount of price")) !!}
+							<span class="input-group-addon">€</span>
+						</div>
+					</div>
+
+	      </div>
+	      <div class="modal-footer">
+					<div class="form-group">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							{!! Form::submit('Create', array('class' => 'btn btn-default btn-primary')) !!}
+						</span>
+					</div><!-- /input-group -->
+	      </div>
+				{!! Form::close() !!}
+	    </div>
+	  </div>
+	</div><!-- end of Modal -->
 
 @endsection

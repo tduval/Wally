@@ -41,16 +41,16 @@ class Account extends Model
   	}
 
     public function getCashAmount() {
-      $transactions = $this->transactions;
-      $amount = 0;
-      foreach ($transactions as $t) {
-        if ($t['type'] == 'Deposit'){
-          $amount += $t['price'];
-        }elseif ($t['type'] == 'Withdrawal'){
-          $amount -= $t['price'];
-        }
+      return $this->cash;
+    }
+
+    public function setCashAmount($type, $amount) {
+      if (($type == 'Deposit') || ($type == 'Sell')){
+        $this->cash += $amount;
+      }elseif (($type == 'Withdrawal') || ($type == 'Buy')){
+        $this->cash -= $amount;
       }
-      return $amount;
+      $this->save();
     }
 
     public function getStockIDList(){

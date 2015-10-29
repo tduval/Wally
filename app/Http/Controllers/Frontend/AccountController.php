@@ -74,6 +74,9 @@ class AccountController extends Controller {
 		$transaction->quantity = $request->input('transactionQuantity');
 		$transaction->price = $request->input('transactionPrice');
 		$transaction->save();
+		if ($request->input('transactionDeductCash') == true){
+			Account::findOrFail($id)->setCashAmount($request->input('transactionType'), $request->input('transactionQuantity')*$request->input('transactionPrice'));
+		}
 		return redirect()->back()->withFlashSuccess("Transaction added.");
 	}
 
@@ -92,6 +95,7 @@ class AccountController extends Controller {
 		$transaction->type = $request->input('cashType');
 		$transaction->price = $request->input('cashPrice');
 		$transaction->save();
+		Account::findOrFail($id)->setCashAmount($request->input('cashType'), $request->input('cashPrice'));
 		return redirect()->back()->withFlashSuccess("Cash flow updated.");
 	}
 

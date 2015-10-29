@@ -19,6 +19,7 @@ class CreateAccountsTable extends Migration
   			$table->string('name');
   			$table->string('type');
   			$table->string('broker');
+        $table->decimal('cash');
   			$table->timestamps();
   			$table->softDeletes();
 		  });

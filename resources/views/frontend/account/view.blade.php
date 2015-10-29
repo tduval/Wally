@@ -130,6 +130,11 @@
 							<span class="input-group-addon">€</span>
 						</div>
 					</div>
+					<div class="form-group">
+						<div class="input-group">
+							{!! Form::checkbox('transactionDeductCash', null, true) !!} Deduct from cash
+						</div>
+					</div>
 
 	      </div>
 	      <div class="modal-footer">

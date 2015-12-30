@@ -26,6 +26,24 @@ class AccountController extends Controller {
 		return view('frontend.account.view', ['account' => $account]);
 	}
 
+	public function transactionView($id)
+	{
+		$account = Account::findOrFail($id);
+		return view('frontend.account.transaction', ['account' => $account]);
+	}
+
+	public function ChartView($id)
+	{
+		$account = Account::findOrFail($id);
+		return view('frontend.account.chart', ['account' => $account]);
+	}
+
+	public function historyView($id)
+	{
+		$account = Account::findOrFail($id);
+		return view('frontend.account.history', ['account' => $account]);
+	}
+
 	public function createAccount(AccountRequest $request)
 	{
 		$account = new Account;

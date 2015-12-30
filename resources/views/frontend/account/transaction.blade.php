@@ -2,76 +2,56 @@
 
 @section('content')
 
-
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-brand" href="#">Account</div>
 
-    <a href="{{ url("/account/".$account->id."/") }}" class="btn btn-default navbar-btn active">Summary</a>
-    <a href="{{ url("/account/".$account->id."/transaction") }}" class="btn btn-default navbar-btn">Transactions</a>
+    <a href="{{ url("/account/".$account->id."/") }}" class="btn btn-default navbar-btn">Summary</a>
+    <a href="{{ url("/account/".$account->id."/transaction") }}" class="btn btn-default navbar-btn active">Transactions</a>
     <a href="{{ url("/account/".$account->id."/chart") }}" class="btn btn-default navbar-btn">Charts</a>
     <a href="{{ url("/account/".$account->id."/history") }}" class="btn btn-default navbar-btn">History</a>
   </div>
 </nav>
 
-	<div class="row">
-		<div class="col-md-8">
-			<div class="panel panel-primary">
-				<div class="panel-heading"><i class="fa fa-home"></i> My Account summary</div>
-				<div class="panel-body">
-					Cash : {{ $account->getCashAmount() }}
-					Total Investment : {{ $account->getInvestAmountForAllStock() }}
-				</div>
-			</div>
-		</div>
-	</div>
-
+<!-- transactions panel -->
 	<div class="row">
 		<div class="col-md-8">
 			<div class="panel panel-default">
-				<div class="panel-heading"><i class="fa fa-tasks"></i> My Stock Quote
-					<div class="btn-group pull-right">
-						<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalAddTransaction">Add Transaction</button>
-						<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalAddCash">Add Cash</button>
-					</div>
-				</div>
+				<div class="panel-heading"><i class="fa fa-tasks"></i> My Transactions</div>
+				<div class="panel-body">
 
-					<table class="table table-hover">
+					<table class="table table-hover table-condensed">
 						<thead>
 							<tr>
-								<th>Symbol</th>
-								<th>Name</th>
-								<th>Exchange</th>
-								<th>Investment</th>
-								<th>Current Price</th>
-								<th>Valorisation</th>
-								<th>Change %</th>
-								<th>Performance €</th>
-								<th>Performance %</th>
+								<th>Date</th>
+								<th>Stock Name</th>
+								<th>Type</th>
+								<th>Quantity</th>
+								<th>Price</th>
+								<th>Commission</th>
+								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach ($account->getStocksCollection() as $st)
-							{{--*/ $quote = $st->getCurrentQuote() /*--}}
+							@foreach ($account->transactions as $transaction)
 								<tr>
-									<td scope="row">{{ $st->symbol }}</td>
-									<td>{{ $st->name }}</td>
-									<td>{{ $st->exchange }}</td>
-									<td>{{ $account->getInvestAmountForSpecificStock($st->id) }}</td>
-									<td>{{ $quote['LastTradePriceOnly'] }}</td>
-									<td>{{ $account->getTotalQuantityForSpecificStock($st->id)*$quote['LastTradePriceOnly'] }}</td>
-									<td>{{ $quote['ChangeinPercent'] }}</td>
-									<td>{{ ($account->getTotalQuantityForSpecificStock($st->id)*$quote['LastTradePriceOnly']) - ($account->getInvestAmountForSpecificStock($st->id)) }}</td>
-									<td>{{ round(((($account->getTotalQuantityForSpecificStock($st->id)*$quote['LastTradePriceOnly'])-($account->getInvestAmountForSpecificStock($st->id)))/($account->getInvestAmountForSpecificStock($st->id))*100), 2) }}%</td>
+									<td scope="row">{{ $transaction->created_at }}</td>
+									<td>{{ $transaction->stock->name }}</td>
+									<td>{{ $transaction->type }}</td>
+									<td>{{ $transaction->quantity }}</td>
+									<td>{{ $transaction->price }}</td>
+									<td>{{ $transaction->commission }}</td>
+									<td><a href="{{ url("/account/".$account->id."/transaction/".$transaction->id."/delete") }}" class="btn btn-xs btn-danger"><i class="fa fa-trash-o"></i></a></td>
 								</tr>
 							@endforeach
 						</tbody>
 					</table>
 
+				</div>
 			</div><!-- panel -->
-		</div>
-	</div>
 
+		</div><!-- col-md-8 -->
+	</div><!-- row -->
 
 	<!-- Modal AddTransaction -->
 	<div class="modal fade" id="modalAddTransaction" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -167,6 +147,5 @@
 	    </div>
 	  </div>
 	</div><!-- end of Modal -->
-
 
 @endsection

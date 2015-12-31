@@ -2,8 +2,10 @@
 
 namespace App;
 
+use Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\YahooFinanceQuery;
 
 class Account extends Model
 {
@@ -30,6 +32,10 @@ class Account extends Model
 
     public function transactions() {
   		return $this->hasMany('App\Transaction', 'account_id');
+  	}
+
+    public function historics() {
+  		return $this->hasMany('App\Historic', 'account_id');
   	}
 
     public function stocks(){
@@ -98,6 +104,29 @@ class Account extends Model
         $amount += $this->getInvestAmountForSpecificStock($s);
       }
       return $amount;
+    }
+
+    public function runHistory(){
+      $historic = new Historic;
+      $historic->account_id = $this->id;
+      $historic->date = date("Y-m-d");
+      $historic->investment = $this->getInvestAmountForAllStock();
+
+      $query = new YahooFinanceQuery;
+      $valorisationStock = 0;
+      foreach($this->getStocksCollection() as $stock){
+        $adjClose = $query->historicalQuote($stock->symbol, date("Y-m-d", time() - 2*(60 * 60 * 24)), date("Y-m-d"))->get()[0];
+        $valorisationStock += $adjClose['AdjClose']*$this->getTotalQuantityForSpecificStock($stock->id);
+        Log::info($stock->symbol.' : '.$adjClose['Date'].' : '.$valorisationStock);
+      }
+
+      $historic->valorisation = $valorisationStock;
+      $historic->performance = $historic->valorisation-$historic->investment;
+      $historic->performancePct = ($historic->performance/$historic->investment)*100;
+      $historic->cash = $this->getCashAmount();
+      $historic->indice = ($historic->valorisation/$historic->investment)*100;
+      $historic->save();
+
     }
 
 }

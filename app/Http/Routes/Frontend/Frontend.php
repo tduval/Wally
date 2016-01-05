@@ -29,6 +29,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 		get('/chart', 'AccountController@chartView')->name('frontend.account');
 		get('/history', 'AccountController@historyView')->name('frontend.account');
 		post('/history', 'AccountController@runHistory')->name('frontend.account');
+		get('/get/history', 'AccountController@getHistory')->name('frontend.account');
 		get('/transaction/{idtransaction}/delete', 'AccountController@deleteTransaction')->where(['idtransaction' => '[0-9]+']);
 	});
 

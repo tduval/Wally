@@ -51,6 +51,12 @@ class AccountController extends Controller {
 		return view('frontend.account.history', ['account' => $account]);
 	}
 
+	public function getHistory($id)
+	{
+		$account = Account::findOrFail($id);
+		return response()->json([$account->historics]);
+	}
+
 	public function createAccount(AccountRequest $request)
 	{
 		$account = new Account;

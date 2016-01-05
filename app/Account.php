@@ -114,12 +114,10 @@ class Account extends Model
 
       $query = new YahooFinanceQuery;
       $valorisationStock = 0;
-      //$stocks = $this->getStocksCollection()->pluck('symbol');
-      foreach($this->getStocksCollection() as $stock){
-        $quote = $query->quote(array($stock->symbol), array('l1'))->get()[0];
-        Log::info($quote);
-        $valorisationStock += $quote['LastTradePriceOnly']*$this->getTotalQuantityForSpecificStock($stock->id);
-        Log::info($stock->symbol.' : '.date("Y-m-d").' : '.$valorisationStock);
+      $stocks = $this->getStocksCollection()->pluck('symbol');
+      $result = $query->quote(array($stocks), array('l1'))->get();
+      foreach($result as $stock){
+        $valorisationStock += $stock['LastTradePriceOnly']*$this->getTotalQuantityForSpecificStock(Stock::where('symbol', $stock['Symbol'])->first()->id);
       }
 
       $historic->valorisation = $valorisationStock;

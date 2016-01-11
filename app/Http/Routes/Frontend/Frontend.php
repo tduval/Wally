@@ -21,16 +21,18 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 	post('account', 'AccountController@createAccount')->name('frontend.account');
 
 	$router->group(['prefix' => 'account/{id}', 'where' => ['id' => '[0-9]+']], function ($id) use ($router) {
-		get('/', 'AccountController@index')->name('frontend.account');
-		get('delete', 'AccountController@deleteAccount')->name('frontend.account');
-		post('/', 'AccountController@addTransaction')->name('frontend.account');
-		post('cash', 'AccountController@cash')->name('frontend.account');
-		get('/transaction', 'AccountController@transactionView')->name('frontend.account');
-		get('/chart', 'AccountController@chartView')->name('frontend.account');
-		get('/history', 'AccountController@historyView')->name('frontend.account');
-		post('/history', 'AccountController@runHistory')->name('frontend.account');
-		get('/get/history', 'AccountController@getHistory')->name('frontend.account');
-		get('/transaction/{idtransaction}/delete', 'AccountController@deleteTransaction')->where(['idtransaction' => '[0-9]+']);
+		$router->group(['middleware' => 'accountAccess'], function () {
+			get('/', 'AccountController@index')->name('frontend.account');
+			get('delete', 'AccountController@deleteAccount')->name('frontend.account');
+			post('/', 'AccountController@addTransaction')->name('frontend.account');
+			post('cash', 'AccountController@cash')->name('frontend.account');
+			get('/transaction', 'AccountController@transactionView')->name('frontend.account');
+			get('/chart', 'AccountController@chartView')->name('frontend.account');
+			get('/history', 'AccountController@historyView')->name('frontend.account');
+			post('/history', 'AccountController@runHistory')->name('frontend.account');
+			get('/get/history', 'AccountController@getHistory')->name('frontend.account');
+			get('/transaction/{idtransaction}/delete', 'AccountController@deleteTransaction')->where(['idtransaction' => '[0-9]+']);
+		});
 	});
 
 });
